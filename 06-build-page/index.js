@@ -67,8 +67,12 @@ readStream.on('data', (chunk) => {
             fs.readFile(path.join(__dirname, 'components', 'articles.html'), 'utf-8', (err, data) => {
                 let regex = /{{articles}}/g;
                 htmlString = htmlString.replace(regex, data);
-                fs.appendFile(pathForBundled, htmlString, (err) => {
-                    if(err) throw err;
+                fs.readFile(path.join(__dirname, 'components', 'about.html'), 'utf-8', (err, data) => {
+                    let regex = /{{about}}/g;
+                    htmlString = htmlString.replace(regex, data);
+                    fs.appendFile(pathForBundled, htmlString, (err) => {
+                        if(err) throw err;
+                    })
                 })
             })
         });
